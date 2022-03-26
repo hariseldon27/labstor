@@ -15,6 +15,13 @@ class QuizQuestionsController < ApplicationController
         new_entry = QuizQuestion.create!(question_params)
         render json: new_entry, status: :created
     end
+
+    def update
+        # byebug
+        to_update = find_question
+        to_update.update(question_params)
+        render json: to_update, status: :ok
+    end
     private
 
     def find_question

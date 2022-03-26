@@ -4,6 +4,7 @@ import LabstorRow from './LabstorRow'
 
 function Labstor() {
 const [initialList, setInitialList] = useState([])
+const [isDel, setIsDel] = useState(false)
 const [inEdit, setInEdit] = useState(
     {
         id: "",
@@ -48,11 +49,17 @@ function handleEditUpdate(recordId){
         },
         body: JSON.stringify(updates),
       })
-    .then(resp => resp.json())
-    .then(data => console.log("data-back" + data))
-
+    // .then(resp => resp.ok ? console.log("update ok") : console.log("error"))
+    .then(response => response.json())
+    .then(data => goFetch(data))
+    
 }
-
+// manual refresh of our DB list
+function goFetch() {
+    fetch(`http://127.0.0.1:3000/quiz_questions/`)
+    .then(resp => resp.json())
+    .then((data)=>setInitialList(data))
+}
 // watch for save button click, and pass updated to record to db
 function saveEdit(e){
     const recordId = e.target.value
@@ -72,42 +79,34 @@ const listStyle = {
     backgroundColor: '#4c956c',
     marginTop: "10",
     margin: "0 auto",
-    padding: "10",
-    textalign: "center",
-    width: "80%",
+    padding: "0",
+    textalign: "center"
+}
+const container = {
+    display: "flex",
+    flexDirection: "row",
+    flexFlow: "row nowrap",
+    justifyContent: "space-around",
+    width: "100%"
 }
 
-const dbviewStyle = {
-    width: "100%",
-    backgroundColor: '#ffc9b9',
-    // tableBorder: "black solid 2px"
+const item = {
+    // width: "5em",
+    // display: "flex"
 }
+
 
 // console.log(inEdit)
   return (
 
-    <div>
+    <div style={listStyle}>
+        <button onClick={goFetch}>refresh</button>
         <h2>Labstor: Legend Database Editor</h2>
-        <div style={dbviewStyle}>
-        <table style={listStyle}>
-            <thead>
-                <tr >
-                        <th>id:</th>
-                        <th>question_text:</th>
-                        <th>ao_1:</th>
-                        <th>ao_2:</th>
-                        <th>ao_3:</th>
-                        <th>ao_4:</th>
-                        <th>ao_5:</th>
-                        <th></th>
-                </tr>
-            </thead>
-            <tbody style={{border: "solid 2px black"}}>
-                <LabstorRow initialList={initialList} handleClickEdit={handleClickEdit} />
-            </tbody>
-        </table>
-        </div>
-        <LabstorEditor inEdit={inEdit} saveEdit={saveEdit} handleEditChange={handleEditChange}/>
+
+                <LabstorRow initialList={initialList} handleClickEdit={handleClickEdit} isDel={isDel} setIsDel={setIsDel} />
+                <LabstorEditor inEdit={inEdit} saveEdit={saveEdit} handleEditChange={handleEditChange}/>
+            
+            
     </div>
   )
 }
