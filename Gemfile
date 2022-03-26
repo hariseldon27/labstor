@@ -49,3 +49,6 @@ group :test do
 end
 
 gem "active_model_serializers", "~> 0.10.12"
+
+# cors to allow us to send data to the React app
+gem 'rack-cors', :require => 'rack/cors'
