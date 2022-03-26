@@ -2,12 +2,16 @@ import './App.css';
 import Labstor from './labstor/Labstor.js'
 
 function App() {
-  const appStyle = {
-    width: "100%",
-    backgroundColor: '#ffc9b9'
+  const holderStyle = {
+    width: "88%",
+    margin: "0 auto",
+    // border: "black 10px solid",
+    padding: "15px",
+    // height: "100%",
+    backgroundColor: '',
 }
   return (
-    <div style={appStyle} className="App">
+    <div style={holderStyle} className="App">
       <Labstor />
     </div>
   );

@@ -43,7 +43,6 @@ function LabstorRow( { initialList, handleClickEdit, isDel, setIsDel } ) {
         flexDirection: "row",
         flexFlow: "row nowrap",
         justifyContent: "space-around",
-        // alignContent: "stretch",
         columnGap: "20px",
         marginTop: "15px",
 
@@ -54,7 +53,7 @@ function LabstorRow( { initialList, handleClickEdit, isDel, setIsDel } ) {
         flexFlow: "column nowrap",
         padding: "20px",
         border: "white 1px solid",
-        rowGap: "40px",
+        rowGap: "20px",
         margin: "10px 15px 10px 15px"
     }
 
@@ -70,7 +69,7 @@ function LabstorRow( { initialList, handleClickEdit, isDel, setIsDel } ) {
                     <strong>{row.question_text}</strong>
                 </div>
             </div>
-            <div style={container}>
+            <div style={containerColumn}>
                 <div style={itemAuto} key={uuidv4()}>
                     <span style={helper}>Answer 1</span>
                     {row.ao_1}

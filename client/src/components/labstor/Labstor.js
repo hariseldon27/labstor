@@ -5,6 +5,8 @@ import LabstorRow from './LabstorRow'
 function Labstor() {
 const [initialList, setInitialList] = useState([])
 const [isDel, setIsDel] = useState(false)
+const [isEditShowing, setIsEditShowing] = useState(false)
+const [isNewShowing, setIsNewShowing] = useState(false)
 const [inEdit, setInEdit] = useState(
     {
         id: "",
@@ -16,7 +18,6 @@ const [inEdit, setInEdit] = useState(
         ao_5: "",
 }
 )
-
 
 // get the initial database list
 useEffect (() => {
@@ -75,11 +76,20 @@ function handleEditChange(e){
     })
 }
 
-const listStyle = {
+function toggleEditor(e){
+    console.log("poop")
+    setIsEditShowing(isEditShowing => isEditShowing = !isEditShowing)
+}
+useEffect(()=> {
+console.log(isEditShowing)
+}, [isEditShowing])
+console.log(isEditShowing)
+
+const labstorContainerStyle = {
     backgroundColor: '#4c956c',
     marginTop: "10",
     margin: "0 auto",
-    padding: "0",
+    padding: "10px",
     textalign: "center"
 }
 const container = {
@@ -99,12 +109,12 @@ const item = {
 // console.log(inEdit)
   return (
 
-    <div style={listStyle}>
-        <button onClick={goFetch}>refresh</button>
+    <div style={labstorContainerStyle}>
         <h2>Labstor: Legend Database Editor</h2>
-
+        <button onClick={goFetch}>refresh</button>
+        <button onClick={toggleEditor}>{isEditShowing ? "hide editor" : "show editor" }</button>
+                {isEditShowing ? <LabstorEditor inEdit={inEdit} saveEdit={saveEdit} handleEditChange={handleEditChange}/> : null}
                 <LabstorRow initialList={initialList} handleClickEdit={handleClickEdit} isDel={isDel} setIsDel={setIsDel} />
-                <LabstorEditor inEdit={inEdit} saveEdit={saveEdit} handleEditChange={handleEditChange}/>
             
             
     </div>
