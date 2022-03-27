@@ -20,7 +20,13 @@ class QuizQuestionsController < ApplicationController
         # byebug
         to_update = find_question
         to_update.update(question_params)
-        render json: to_update, status: :ok
+        render json: { "DELETED": to_update }, status: :ok
+    end
+
+    def destroy
+        to_delete = find_question
+        to_delete.delete
+        render json: to_delete, status: :ok
     end
     private
 

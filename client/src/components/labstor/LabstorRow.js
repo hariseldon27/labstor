@@ -1,22 +1,43 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import LabstorOk from './LabstorOk'
 
-function LabstorRow( { initialList, handleClickEdit, isDel, setIsDel } ) {
-    
+
+function LabstorRow( { initialList, row, handleClickEdit, goFetch} ) {
+    const initialState = {isDel: false};
+    const [state, dispatch] = useReducer(reducer, initialState);
+        
+        function reducer(state, action) {
+            let newState
+            switch (action.type) {
+            case 'toggleIsDel':
+                newState = { isDel: !state.isDel }
+                break
+            default:
+                throw new Error();
+            }
+            return newState
+        }
 
     function onClickEdit(e) {
-        // debugger
-        // console.log(e.target.name)
         handleClickEdit(e)
     }
-    function onClickOkay(e){
-        setIsDel(isDel => isDel = !isDel)
+
+    function onToggleClick(e) {
+        
+        dispatch({type: 'toggleIsDel'})
     }
-    useEffect(() => {
-        console.log(isDel)
-    }, [isDel])
-    
+
+    function doDelete(e){
+        const toDelete = e.target.name
+        console.log(toDelete)
+        fetch(`http://127.0.0.1:3000/quiz_questions/` + toDelete, {
+            method: "DELETE"
+        })
+        .then(response => response.json())
+        .then(data => goFetch())
+    }
+
     const itemAuto = {
         backgroundColor: "#ffc9b9",
         padding: "10px",
@@ -57,7 +78,9 @@ function LabstorRow( { initialList, handleClickEdit, isDel, setIsDel } ) {
         margin: "10px 15px 10px 15px"
     }
 
-    return initialList.map((row) => {
+    const cancelButtonIcon = '⌧'
+    const delButtonIcon = '🗑'
+
         return ( 
         <div style={containerColumn}>
             <div key={uuidv4()} style={container} >
@@ -93,14 +116,15 @@ function LabstorRow( { initialList, handleClickEdit, isDel, setIsDel } ) {
                 <div style={itemAuto} key={uuidv4()}>
                     <span style={helper}>edit...</span>
                     <button onClick={onClickEdit} id={row.id} name={row.id}>&#9998;</button>
-                    <button onClick={onClickOkay} id={row.id} name={row.id}>&#x1F5D1;</button>
-                    <LabstorOk isDel={isDel} rowId={row.id}/>
+                    <button onClick={onToggleClick}>{state.isDel ? cancelButtonIcon : delButtonIcon}</button>
+                    { state.isDel ? <button onClick={doDelete} id={row.id} name={row.id}>If you're sure, click to Del Record #<strong>{row.id}</strong></button> : null } 
+                    
                 </div>
             </div>
         </div>
 
         )
-    })
+    // })
 }
 
 export default LabstorRow
