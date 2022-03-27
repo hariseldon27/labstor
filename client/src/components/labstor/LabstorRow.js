@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid';
-import LabstorOk from './LabstorOk'
+
 
 
 function LabstorRow( { initialList, row, handleClickEdit, goFetch} ) {
-    const initialState = {isDel: false};
+    const initialState = {isDel: false, compact: false};
     const [state, dispatch] = useReducer(reducer, initialState);
         
         function reducer(state, action) {
@@ -24,9 +24,9 @@ function LabstorRow( { initialList, row, handleClickEdit, goFetch} ) {
     }
 
     function onToggleClick(e) {
-        
         dispatch({type: 'toggleIsDel'})
     }
+
 
     function doDelete(e){
         const toDelete = e.target.name
@@ -80,19 +80,20 @@ function LabstorRow( { initialList, row, handleClickEdit, goFetch} ) {
 
     const cancelButtonIcon = '⌧'
     const delButtonIcon = '🗑'
-
+    
+    // console.log(Object.entries(row))
         return ( 
-        <div style={containerColumn}>
+        <div style={containerColumn} key={uuidv4()}>
             <div key={uuidv4()} style={container} >
                 <div style={itemAuto} key={uuidv4()}>
                     <strong>ID:</strong> {row.id}
                 </div>
+            </div>
+            <div style={containerColumn}>
                 <div style={itemWide} key={uuidv4()}>
                     <span style={helper}>Question Text</span>
                     <strong>{row.question_text}</strong>
                 </div>
-            </div>
-            <div style={containerColumn}>
                 <div style={itemAuto} key={uuidv4()}>
                     <span style={helper}>Answer 1</span>
                     {row.ao_1}
@@ -113,12 +114,13 @@ function LabstorRow( { initialList, row, handleClickEdit, goFetch} ) {
                     <span style={helper}>Answer 5</span>
                     {row.ao_5}
                 </div>
+            </div>
+            <div style={container} key={uuidv4()}>
                 <div style={itemAuto} key={uuidv4()}>
                     <span style={helper}>edit...</span>
                     <button onClick={onClickEdit} id={row.id} name={row.id}>&#9998;</button>
                     <button onClick={onToggleClick}>{state.isDel ? cancelButtonIcon : delButtonIcon}</button>
-                    { state.isDel ? <button onClick={doDelete} id={row.id} name={row.id}>If you're sure, click to Del Record #<strong>{row.id}</strong></button> : null } 
-                    
+                    { state.isDel ? <button onClick={doDelete} id={row.id} name={row.id}>If you're sure, click to Del Record #<strong>{row.id}</strong></button> : null }    
                 </div>
             </div>
         </div>
