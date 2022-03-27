@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
-function LabstorEditor( { inEdit, saveEdit, handleEditChange } ) {
+function LabstorEditor( { inEdit, handleEditChange, setInEdit, goFetch } ) {
+
     const newRecord = {
         id: "new",
         question_text: "",
@@ -10,12 +11,41 @@ function LabstorEditor( { inEdit, saveEdit, handleEditChange } ) {
         ao_4: "",
         ao_5: ""
 }
-    function handleSaveEdit(e){
-        saveEdit(e)
+
+
+// write the edits to the DB
+function handleEditUpdate(event){
+    const recordId = event.target.value
+    const updates = {
+        question_text: inEdit.question_text,
+        ao_1: inEdit.ao_1,
+        ao_2: inEdit.ao_2,
+        ao_3: inEdit.ao_3,
+        ao_4: inEdit.ao_4,
+        ao_5: inEdit.ao_5,  
     }
-    function handleNewEdit(e){
-        
-    }
+    fetch(`http://127.0.0.1:3000/quiz_questions/` + recordId, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updates),
+      })
+    // .then(resp => resp.ok ? console.log("update ok") : console.log("error"))
+    .then(response => response.json())
+    .then(data => goFetch(data))
+}
+
+// handle the edits from the form and pass to state
+function handleEditChange(e){
+    const name = e.target.name;
+    let value = e.target.value;
+    setInEdit({
+        ...inEdit,
+        [name]: value
+    })
+}
+
     function handleEdit(e) {
         handleEditChange(e)
     }
@@ -73,8 +103,8 @@ function LabstorEditor( { inEdit, saveEdit, handleEditChange } ) {
                     <textarea style={inputStyle} id="ao_5" key="ao_5" type="textarea" value={inEdit.ao_5} name="ao_5" onChange={handleEdit}></textarea>
                 </div>
                 <div>
-                    <button value={inEdit.id} id="save_button" onClick={handleSaveEdit}>Save Edit</button>
-                    <button value={inEdit.id} id="new_button" onClick={handleNewEdit}>New Question</button>
+                    <button value={inEdit.id} id="save_button" onClick={handleEditUpdate}>Save Edit</button>
+                    <button value={inEdit.id} id="new_button" onClick={handleEdit}>New Question</button>
                     
                 </div>
             </div>
