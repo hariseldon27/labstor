@@ -72,6 +72,9 @@ function LabstorRow( { initialList, row, handleClickEdit} ) {
         margin: "10px 15px 10px 15px"
     }
 
+    const cancelButtonIcon = '⌧'
+    const delButtonIcon = '🗑'
+
         return ( 
         <div style={containerColumn}>
             <div key={uuidv4()} style={container} >
@@ -107,10 +110,9 @@ function LabstorRow( { initialList, row, handleClickEdit} ) {
                 <div style={itemAuto} key={uuidv4()}>
                     <span style={helper}>edit...</span>
                     <button onClick={onClickEdit} id={row.id} name={row.id}>&#9998;</button>
-                    {/* <button onClick={onClickOkay} id={row.id} name={row.id}>&#x1F5D1;</button> */}
-                    <button onClick={onToggleClick}>Toggle IsDel</button>
-                    { state.isDel ? <button onClick={doDelete} id={row.id} name={row.id}>&#x1F5D1; Click to Del Record #<strong>{row.id}</strong></button> : null } 
-                    {/* <LabstorOk isDel={state.isDel} rowId={row.id}/> */}
+                    <button onClick={onToggleClick}>{state.isDel ? cancelButtonIcon : delButtonIcon}</button>
+                    { state.isDel ? <button onClick={doDelete} id={row.id} name={row.id}>If you're sure, click to Del Record #<strong>{row.id}</strong></button> : null } 
+                    
                 </div>
             </div>
         </div>
