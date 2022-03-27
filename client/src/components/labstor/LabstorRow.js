@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import LabstorOk from './LabstorOk'
 
 
-function LabstorRow( { initialList, row, handleClickEdit} ) {
+function LabstorRow( { initialList, row, handleClickEdit, goFetch} ) {
     const initialState = {isDel: false};
     const [state, dispatch] = useReducer(reducer, initialState);
         
@@ -28,8 +28,14 @@ function LabstorRow( { initialList, row, handleClickEdit} ) {
         dispatch({type: 'toggleIsDel'})
     }
 
-    function doDelete(){
-        console.log("delete")
+    function doDelete(e){
+        const toDelete = e.target.name
+        console.log(toDelete)
+        fetch(`http://127.0.0.1:3000/quiz_questions/` + toDelete, {
+            method: "DELETE"
+        })
+        .then(response => response.json())
+        .then(data => goFetch())
     }
 
     const itemAuto = {

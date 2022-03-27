@@ -80,7 +80,7 @@ function Labstor() {
         <button onClick={goFetch}>refresh</button>
         <button onClick={toggleEditor}>{isEditShowing ? "hide editor" : "show editor" }</button>
                 {isEditShowing ? <LabstorEditor inEdit={inEdit} setInEdit={setInEdit} goFetch={goFetch} handleClickEdit={handleClickEdit}/> : null}
-                <LabstorList initialList={initialList} handleClickEdit={handleClickEdit} />
+                <LabstorList initialList={initialList} handleClickEdit={handleClickEdit} goFetch={goFetch}/>
             
             
     </div>

@@ -3,12 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 import LabstorOk from './LabstorOk'
 import LabstorRow from './LabstorRow';
 
-function LabstorList( { initialList, handleClickEdit } ) {
+function LabstorList( { initialList, handleClickEdit, goFetch } ) {
 
     return (
         initialList.map((row) => (
         <>
-            <LabstorRow row={row} handleClickEdit={handleClickEdit} />
+            <LabstorRow row={row} handleClickEdit={handleClickEdit} goFetch={goFetch} />
         </>
     )))
 }
