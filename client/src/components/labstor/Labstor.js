@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import LabstorEditor from './LabstorEditor'
+import LabstorList from './LabstorList'
 import LabstorRow from './LabstorRow'
 
 function Labstor() {
 const [initialList, setInitialList] = useState([])
-const [isDel, setIsDel] = useState(false)
 const [isEditShowing, setIsEditShowing] = useState(false)
-const [isNewShowing, setIsNewShowing] = useState(false)
+// const [isNewShowing, setIsNewShowing] = useState(false)
 const [inEdit, setInEdit] = useState(
     {
         id: "",
@@ -53,7 +53,6 @@ function handleEditUpdate(recordId){
     // .then(resp => resp.ok ? console.log("update ok") : console.log("error"))
     .then(response => response.json())
     .then(data => goFetch(data))
-    
 }
 // manual refresh of our DB list
 function goFetch() {
@@ -80,10 +79,10 @@ function toggleEditor(e){
     console.log("poop")
     setIsEditShowing(isEditShowing => isEditShowing = !isEditShowing)
 }
-useEffect(()=> {
-console.log(isEditShowing)
-}, [isEditShowing])
-console.log(isEditShowing)
+// useEffect(()=> {
+// console.log(isEditShowing)
+// }, [isEditShowing])
+// console.log(isEditShowing)
 
 const labstorContainerStyle = {
     backgroundColor: '#4c956c',
@@ -114,7 +113,8 @@ const item = {
         <button onClick={goFetch}>refresh</button>
         <button onClick={toggleEditor}>{isEditShowing ? "hide editor" : "show editor" }</button>
                 {isEditShowing ? <LabstorEditor inEdit={inEdit} saveEdit={saveEdit} handleEditChange={handleEditChange}/> : null}
-                <LabstorRow initialList={initialList} handleClickEdit={handleClickEdit} isDel={isDel} setIsDel={setIsDel} />
+                <LabstorList initialList={initialList} handleClickEdit={handleClickEdit} />
+                {/* <LabstorRow initialList={initialList} handleClickEdit={handleClickEdit}  /> */}
             
             
     </div>

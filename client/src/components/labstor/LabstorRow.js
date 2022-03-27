@@ -1,22 +1,37 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import LabstorOk from './LabstorOk'
 
-function LabstorRow( { initialList, handleClickEdit, isDel, setIsDel } ) {
-    
+
+function LabstorRow( { initialList, row, handleClickEdit} ) {
+    const initialState = {isDel: false};
+    const [state, dispatch] = useReducer(reducer, initialState);
+        
+        function reducer(state, action) {
+            let newState
+            switch (action.type) {
+            case 'toggleIsDel':
+                newState = { isDel: !state.isDel }
+                break
+            default:
+                throw new Error();
+            }
+            return newState
+        }
 
     function onClickEdit(e) {
-        // debugger
-        // console.log(e.target.name)
         handleClickEdit(e)
     }
-    function onClickOkay(e){
-        setIsDel(isDel => isDel = !isDel)
+
+    function onToggleClick(e) {
+        
+        dispatch({type: 'toggleIsDel'})
     }
-    useEffect(() => {
-        console.log(isDel)
-    }, [isDel])
-    
+
+    function doDelete(){
+        console.log("delete")
+    }
+
     const itemAuto = {
         backgroundColor: "#ffc9b9",
         padding: "10px",
@@ -57,7 +72,6 @@ function LabstorRow( { initialList, handleClickEdit, isDel, setIsDel } ) {
         margin: "10px 15px 10px 15px"
     }
 
-    return initialList.map((row) => {
         return ( 
         <div style={containerColumn}>
             <div key={uuidv4()} style={container} >
@@ -93,14 +107,16 @@ function LabstorRow( { initialList, handleClickEdit, isDel, setIsDel } ) {
                 <div style={itemAuto} key={uuidv4()}>
                     <span style={helper}>edit...</span>
                     <button onClick={onClickEdit} id={row.id} name={row.id}>&#9998;</button>
-                    <button onClick={onClickOkay} id={row.id} name={row.id}>&#x1F5D1;</button>
-                    <LabstorOk isDel={isDel} rowId={row.id}/>
+                    {/* <button onClick={onClickOkay} id={row.id} name={row.id}>&#x1F5D1;</button> */}
+                    <button onClick={onToggleClick}>Toggle IsDel</button>
+                    { state.isDel ? <button onClick={doDelete} id={row.id} name={row.id}>&#x1F5D1; Click to Del Record #<strong>{row.id}</strong></button> : null } 
+                    {/* <LabstorOk isDel={state.isDel} rowId={row.id}/> */}
                 </div>
             </div>
         </div>
 
         )
-    })
+    // })
 }
 
 export default LabstorRow
