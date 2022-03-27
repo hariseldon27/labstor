@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, {  } from 'react'
 
-function LabstorEditor( { inEdit, handleEditChange, setInEdit, goFetch } ) {
+function LabstorEditor( { inEdit, setInEdit, goFetch } ) {
 
     const newRecord = {
         id: "new",
@@ -110,27 +110,27 @@ function LabstorEditor( { inEdit, handleEditChange, setInEdit, goFetch } ) {
                 
             <div style={container}>
                 <div>
-                    <label for="question_text_input">Question Text</label>
+                    <label htmlFor="question_text_input">Question Text</label>
                     <textarea cols="50" rows="4" id="question_text_input" style={inputStyle} key="question_text" type="textarea" value={inEdit.question_text} name="question_text" onChange={handleEditChange}></textarea>
                 </div>
                 <div>
-                    <label for="ao_1">Answ Opt 1</label>
+                    <label htmlFor="ao_1">Answ Opt 1</label>
                     <textarea style={inputStyle} id="ao_1" key="ao_1" value={inEdit.ao_1} name="ao_1" onChange={handleEdit}></textarea>
                 </div>
                 <div>
-                    <label for="ao_2">Answ Opt 2</label>
+                    <label htmlFor="ao_2">Answ Opt 2</label>
                     <textarea style={inputStyle} id="ao_2" key="ao_2" type="textarea" value={inEdit.ao_2} name="ao_2" onChange={handleEdit}></textarea>
                 </div>
                 <div>
-                    <label for="ao_3">Answ Opt 3</label>
+                    <label htmlFor="ao_3">Answ Opt 3</label>
                     <textarea style={inputStyle} id="ao_3" key="ao_3" type="textarea" value={inEdit.ao_3} name="ao_3" onChange={handleEdit}></textarea>
                 </div>
                 <div>
-                    <label for="ao_4">Answ Opt 4</label>
+                    <label htmlFor="ao_4">Answ Opt 4</label>
                     <textarea style={inputStyle} id="ao_4" key="ao_4" type="textarea" value={inEdit.ao_4} name="ao_4" onChange={handleEdit}></textarea>
                 </div>
                 <div>
-                    <label for="ao_5">Answ Opt 5</label>
+                    <label htmlFor="ao_5">Answ Opt 5</label>
                     <textarea style={inputStyle} id="ao_5" key="ao_5" type="textarea" value={inEdit.ao_5} name="ao_5" onChange={handleEdit}></textarea>
                 </div>
                 <div>

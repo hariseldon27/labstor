@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useReducer } from 'react'
-import { v4 as uuidv4 } from 'uuid';
-import LabstorOk from './LabstorOk'
+import React, {  } from 'react'
+
 import LabstorRow from './LabstorRow';
 
 function LabstorList( { initialList, handleClickEdit, goFetch } ) {
@@ -8,7 +7,7 @@ function LabstorList( { initialList, handleClickEdit, goFetch } ) {
     return (
         initialList.map((row) => (
         <>
-            <LabstorRow row={row} handleClickEdit={handleClickEdit} goFetch={goFetch} />
+            <LabstorRow key={`row${row.id}`} row={row} handleClickEdit={handleClickEdit} goFetch={goFetch} />
         </>
     )))
 }

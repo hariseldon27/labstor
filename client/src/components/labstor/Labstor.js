@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import LabstorEditor from './LabstorEditor'
 import LabstorList from './LabstorList'
-import LabstorRow from './LabstorRow'
 
 function Labstor() {
     const [initialList, setInitialList] = useState([])
@@ -58,21 +57,8 @@ function Labstor() {
         padding: "10px",
         textalign: "center"
     }
-    const container = {
-        display: "flex",
-        flexDirection: "row",
-        flexFlow: "row nowrap",
-        justifyContent: "space-around",
-        width: "100%"
-    }
-
-    const item = {
-        // width: "5em",
-        // display: "flex"
-    }
 
 
-// console.log(inEdit)
   return (
 
     <div style={labstorContainerStyle}>
