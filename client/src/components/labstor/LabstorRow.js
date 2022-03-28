@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
-function LabstorRow( { initialList, row, handleClickEdit, goFetch} ) {
+function LabstorRow( { row, handleClickEdit, goFetch } ) {
     const initialState = {isDel: false, compact: false};
     const [state, dispatch] = useReducer(reducer, initialState);
         
@@ -80,53 +80,37 @@ function LabstorRow( { initialList, row, handleClickEdit, goFetch} ) {
 
     const cancelButtonIcon = '⌧'
     const delButtonIcon = '🗑'
-    
-    // console.log(Object.entries(row))
-        return ( 
-        <div style={containerColumn} key={uuidv4()}>
-            <div key={uuidv4()} style={container} >
-                <div style={itemAuto} key={uuidv4()}>
-                    <strong>ID:</strong> {row.id}
-                </div>
-            </div>
-            <div style={containerColumn}>
-                <div style={itemWide} key={uuidv4()}>
-                    <span style={helper}>Question Text</span>
-                    <strong>{row.question_text}</strong>
-                </div>
-                <div style={itemAuto} key={uuidv4()}>
-                    <span style={helper}>Answer 1</span>
-                    {row.ao_1}
-                </div>
-                <div style={itemAuto} key={uuidv4()}>
-                    <span style={helper}>Answer 2</span>
-                    {row.ao_2}
-                </div>
-                <div style={itemAuto} key={uuidv4()}>
-                    <span style={helper}>Answer 3</span>
-                    {row.ao_3}
-                </div>
-                <div style={itemAuto} key={uuidv4()}>
-                    <span style={helper}>Answer 4</span>
-                    {row.ao_4}
-                </div>
-                <div style={itemAuto} key={uuidv4()}>
-                    <span style={helper}>Answer 5</span>
-                    {row.ao_5}
-                </div>
-            </div>
-            <div style={container} key={uuidv4()}>
-                <div style={itemAuto} key={uuidv4()}>
-                    <span style={helper}>edit...</span>
-                    <button onClick={onClickEdit} id={row.id} name={row.id}>&#9998;</button>
-                    <button onClick={onToggleClick}>{state.isDel ? cancelButtonIcon : delButtonIcon}</button>
-                    { state.isDel ? <button onClick={doDelete} id={row.id} name={row.id}>If you're sure, click to Del Record #<strong>{row.id}</strong></button> : null }    
-                </div>
-            </div>
-        </div>
 
-        )
-    // })
+    function Item(){
+        return (
+            Object.entries(row).map((item) => (
+                        <div style={itemWide} key={uuidv4()}>
+                            <span style={helper}>{item[0]}</span>
+                            {item[1]}
+                        </div>
+        )))
+    }
+
+    return (
+        <div style={containerColumn} key={`row${row.id}`}>
+                    <div key={uuidv4()} style={container}>
+                        <div style={itemAuto} key={uuidv4()}>
+                            <strong>ID: {row.id}</strong>
+                        </div>
+                    </div>
+                    <div style={containerColumn}>
+                        <Item/>
+                        <div style={container} key={uuidv4()}>
+                            <div style={itemAuto} key={uuidv4()}>
+                                <span style={helper}>edit...</span>
+                                <button onClick={onClickEdit} id={row.id} name={row.id}>&#9998;</button>
+                                <button onClick={onToggleClick}>{state.isDel ? cancelButtonIcon : delButtonIcon}</button>
+                                { state.isDel ? <button onClick={doDelete} id={row.id} name={row.id}>If you're sure, click to Del Record #<strong>{row.id}</strong></button> : null }    
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    )
 }
 
 export default LabstorRow

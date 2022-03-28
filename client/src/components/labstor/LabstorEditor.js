@@ -100,7 +100,6 @@ function LabstorEditor( { inEdit, setInEdit, goFetch } ) {
         
     }
 
-// console.log(inEdit)
     return (
         <div style={{border:"1px solid #fefee3", margin: "10px 15px", padding: "5px"}}>
             <h3><strong>Editor</strong></h3>
@@ -119,19 +118,19 @@ function LabstorEditor( { inEdit, setInEdit, goFetch } ) {
                 </div>
                 <div>
                     <label htmlFor="ao_2">Answ Opt 2</label>
-                    <textarea style={inputStyle} id="ao_2" key="ao_2" type="textarea" value={inEdit.ao_2} name="ao_2" onChange={handleEdit}></textarea>
+                    <textarea style={inputStyle} id="ao_2" key="ao_2" value={inEdit.ao_2} name="ao_2" onChange={handleEdit}></textarea>
                 </div>
                 <div>
                     <label htmlFor="ao_3">Answ Opt 3</label>
-                    <textarea style={inputStyle} id="ao_3" key="ao_3" type="textarea" value={inEdit.ao_3} name="ao_3" onChange={handleEdit}></textarea>
+                    <textarea style={inputStyle} id="ao_3" key="ao_3" value={inEdit.ao_3} name="ao_3" onChange={handleEdit}></textarea>
                 </div>
                 <div>
                     <label htmlFor="ao_4">Answ Opt 4</label>
-                    <textarea style={inputStyle} id="ao_4" key="ao_4" type="textarea" value={inEdit.ao_4} name="ao_4" onChange={handleEdit}></textarea>
+                    <textarea style={inputStyle} id="ao_4" key="ao_4" value={inEdit.ao_4} name="ao_4" onChange={handleEdit}></textarea>
                 </div>
                 <div>
                     <label htmlFor="ao_5">Answ Opt 5</label>
-                    <textarea style={inputStyle} id="ao_5" key="ao_5" type="textarea" value={inEdit.ao_5} name="ao_5" onChange={handleEdit}></textarea>
+                    <textarea style={inputStyle} id="ao_5" key="ao_5" value={inEdit.ao_5} name="ao_5" onChange={handleEdit}></textarea>
                 </div>
                 <div>
                     <button value={inEdit.id} id="save_button" onClick={handleEditUpdate}>Save Edit</button>
